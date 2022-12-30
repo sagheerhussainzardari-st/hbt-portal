@@ -35,10 +35,10 @@ Route::get("/create_roles",function(){
 });
 
 Route::get('/dashboard', function () {
+    $role = Auth::user()->roles[0]["name"] ?? '';
+    $route = $role == 'admin' ? 'Admin/Dashboard' : ($role == 'student' ? 'Student/Dashboard' : 'Teacher/Dashboard');
+    return Inertia::render($route);
     
-    Log::info(Auth::user() );
-
-    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -47,4 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/test',function(){
+    dd("test");
+});
 require __DIR__.'/auth.php';

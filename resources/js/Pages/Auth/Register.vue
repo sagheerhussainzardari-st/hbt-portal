@@ -61,14 +61,6 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="role" value="Role" />
 
-                <!-- <TextInput
-                    id="role"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.role"
-                    required
-                    autocomplete="role"
-                /> -->
                 <select v-model="form.role"  class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                     <option value="student">Student</option>
                     <option value="teacher">Teacher</option>
