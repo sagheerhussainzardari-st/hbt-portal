@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +28,16 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get("/create_roles",function(){
+    $role = Role::create(['name' => 'student']);
+    $role = Role::create(['name' => 'teacher']);
+    $role = Role::create(['name' => 'admin']);
+});
+
 Route::get('/dashboard', function () {
+    
+    Log::info(Auth::user() );
+
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
