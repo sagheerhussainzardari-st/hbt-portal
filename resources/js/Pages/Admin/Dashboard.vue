@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/inertia-vue3';
 </script>
 
 <template>
-    <Head title="Home" />
+    <Head title="Dashboard" />
 
     <AuthenticatedLayout>
         <h1>This is your portal for admin</h1>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -47,7 +48,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/test',function(){
-    dd("test");
+Route::middleware('admin')->group(function(){
+    Route::prefix('admin')->group(function () {
+        Route::get("teachers",[TeacherController::class,'index'])->name('admin.teachers');
+        Route::post("teachers/add",[TeacherController::class,'store'])->name('admin.teachers.add');
+    });
 });
+
+
 require __DIR__.'/auth.php';
