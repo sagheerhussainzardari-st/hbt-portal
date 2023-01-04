@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string("emergency_phone");
             $table->string("education");
             $table->string("cnic");
+            $table->string("email");
             $table->foreignId("course_id")->references("id")->on("courses")->onDelete("cascade")->onUpdate("cascade");
             $table->foreignId("shift_id")->references("id")->on("shifts")->onDelete("cascade")->onUpdate("cascade");
             $table->timestamps();

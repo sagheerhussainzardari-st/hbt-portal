@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,13 @@ Route::middleware('admin')->group(function(){
     Route::prefix('admin')->group(function () {
         Route::get("teachers",[TeacherController::class,'index'])->name('admin.teachers');
         Route::post("teachers/add",[TeacherController::class,'store'])->name('admin.teachers.add');
+        Route::post("teachers/update",[TeacherController::class,'update'])->name('admin.teachers.update');
+        Route::post("teachers/delete/{id}",[TeacherController::class,'delete'])->name('admin.teachers.delete');
+
+        Route::get("students",[StudentController::class,'index'])->name('admin.students');
+        Route::post("students/add",[StudentController::class,'store'])->name('admin.students.add');
+        Route::post("students/update",[StudentController::class,'update'])->name('admin.students.update');
+        Route::post("students/delete/{id}",[StudentController::class,'delete'])->name('admin.students.delete');
     });
 });
 

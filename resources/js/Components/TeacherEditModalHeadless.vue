@@ -16,7 +16,8 @@ import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 const isOpen = ref(false)
 
 const props = defineProps({
-  courses: Array
+  courses: Array,
+  teacher: Object
 });
 
 function closeModal() {
@@ -27,14 +28,15 @@ function openModal() {
 }
 
 const form = useForm({
-  name: '',
-  about: '',
-  email: '',
-  course_id: props.courses[0].id,
+  id: props.teacher.id,
+  name: props.teacher.name,
+  about: props.teacher.about,
+  email: props.teacher.email,
+  course_id: props.teacher.course_id,
 });
 
 const submit = () => {
-  form.post(route('admin.teachers.add'));
+  form.post(route('admin.teachers.update'));
   closeModal();
   window.location.reload();
 };
@@ -45,7 +47,7 @@ const submit = () => {
   <div class=" flex items-center justify-center">
     <button type="button" @click="openModal"
       class="rounded-md bg-black  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-      Add New
+      Edit
     </button>
   </div>
   <TransitionRoot appear :show="isOpen" as="template">
@@ -63,7 +65,7 @@ const submit = () => {
             <DialogPanel
               class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
               <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
-                Add New Teacher
+                Edit Teacher
                 <hr class="mt-2 mb-4">
               </DialogTitle>
 
@@ -79,10 +81,10 @@ const submit = () => {
                 <div >
                   <InputLabel for="email" value="Email" />
 
-                  <TextInput id="email" type="text" class="mt-1 block w-full" v-model="form.email" required 
+                  <TextInput id="email" type="text" :value="form.email" disabled class="mt-1 block w-full"  
                     autocomplete="email" />
 
-                  <InputError class="mt-2" :message="form.errors.about" />
+                  <InputError class="mt-2" :message="form.errors.email" />
                 </div>
                 <div >
                   <InputLabel for="about" value="About" />
@@ -106,9 +108,9 @@ const submit = () => {
 
              
 
-                <div class="flex items-center col-span-2 justify-center  mt-4">
+                <div class="flex items-center justify-center col-span-2  mt-4">
                   <PrimaryButton class="px-8"  :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Add
+                    Save
                   </PrimaryButton>
                 </div>
               </form>
