@@ -10,7 +10,8 @@ import axios from 'axios';
 const props = defineProps({
     courses: Array,
     shifts: Array,
-    students: Array
+    students: Array,
+    role: String
 });
 
 const getCourseName = (course_id) =>{
@@ -19,7 +20,7 @@ const getCourseName = (course_id) =>{
 
 const deleteStudent = (student_id) =>{
     axios.post('students/delete/'+student_id);
-  window.location.reload();
+    window.location.reload();
 }
 
 </script>
@@ -27,7 +28,7 @@ const deleteStudent = (student_id) =>{
 <template>
     <Head title="students" />
 
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :role="role" >
         <div class="bg-white m-4   h-full p-6 rounded shadow ">
             <div class="flex justify-between items-center border-2 p-2 rounded-t">
                 <h1 class="text-xl font-bold">students ({{students.length || 0}})</h1>

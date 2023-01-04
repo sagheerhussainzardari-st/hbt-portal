@@ -8,6 +8,10 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 
 const showingNavigationDropdown = ref(false);
+
+const props = defineProps({
+    role: String,
+});
 </script>
 
 <template>
@@ -32,10 +36,10 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('admin.teachers')" :active="route().current('admin.teachers')">
+                                <NavLink v-if="role === 'admin' ? true: false" :href="route('admin.teachers')" :active="route().current('admin.teachers')">
                                     Teachers
                                 </NavLink>
-                                <NavLink :href="route('admin.students')" :active="route().current('admin.students')">
+                                <NavLink v-if="role === 'admin' ? true: false"  :href="route('admin.students')" :active="route().current('admin.students')">
                                     Students
                                 </NavLink>
 

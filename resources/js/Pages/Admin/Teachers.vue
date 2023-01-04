@@ -9,7 +9,8 @@ import axios from 'axios';
 
 const props = defineProps({
     courses: Array,
-    teachers: Array
+    teachers: Array,
+    role: String
 });
 
 const getCourseName = (course_id) =>{
@@ -26,7 +27,7 @@ const deleteTeacher = (teacher_id) =>{
 <template>
     <Head title="Teachers" />
 
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :role="role">
         <div class="bg-white m-4   h-full p-6 rounded shadow ">
             <div class="flex justify-between items-center border-2 p-2 rounded-t">
                 <h1 class="text-xl font-bold">Teachers ({{teachers.length || 0}})</h1>

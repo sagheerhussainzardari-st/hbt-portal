@@ -39,7 +39,9 @@ Route::get("/create_roles",function(){
 Route::get('/dashboard', function () {
     $role = Auth::user()->roles[0]["name"] ?? '';
     $route = $role == 'admin' ? 'Admin/Dashboard' : ($role == 'student' ? 'Student/Dashboard' : 'Teacher/Dashboard');
-    return Inertia::render($route);
+    return Inertia::render($route,[
+        "role" => $role
+    ]);
     
 })->middleware(['auth', 'verified'])->name('dashboard');
 

@@ -7,6 +7,7 @@ use App\Models\Teacher;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
@@ -15,7 +16,8 @@ class TeacherController extends Controller
     function index(Request $request){
         $courses = Course::all();
         $teachers = Teacher::all();
-        return Inertia::render('Admin/Teachers',["teachers" => $teachers,"courses" => $courses]);
+        $role = Auth::user()->roles[0]["name"] ?? '';
+        return Inertia::render('Admin/Teachers',["teachers" => $teachers,"courses" => $courses,"role" => $role]);
     }
 
     function store(Request $request){

@@ -7,6 +7,7 @@ use App\Models\Shift;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
@@ -16,7 +17,8 @@ class StudentController extends Controller
         $courses = Course::all();
         $shifts = Shift::all();
         $students = Student::all();
-        return Inertia::render('Admin/Students',["students" => $students,"courses" => $courses,'shifts' => $shifts]);
+        $role = Auth::user()->roles[0]["name"] ?? '';
+        return Inertia::render('Admin/Students',["students" => $students,"courses" => $courses,'shifts' => $shifts,"role" => $role]);
     }
 
     function store(Request $request){
@@ -43,7 +45,7 @@ class StudentController extends Controller
 
         $user->assignRole('student');
 
-        
+
 
         return redirect("/admin/students");
     }
