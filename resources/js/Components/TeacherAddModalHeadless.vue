@@ -79,12 +79,12 @@ const submit = () => {
                 <div >
                   <InputLabel for="email" value="Email" />
 
-                  <TextInput id="email" type="text" class="mt-1 block w-full" v-model="form.email" required 
+                  <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required 
                     autocomplete="email" />
 
-                  <InputError class="mt-2" :message="form.errors.about" />
+                  <InputError class="mt-2" :message="form.errors.email" />
                 </div>
-                <div >
+                <div>
                   <InputLabel for="about" value="About" />
 
                   <TextInput id="about" type="text" class="mt-1 block w-full" v-model="form.about" required 

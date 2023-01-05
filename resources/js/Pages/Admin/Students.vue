@@ -17,6 +17,9 @@ const props = defineProps({
 const getCourseName = (course_id) =>{
     return props.courses.find(course => course.id === course_id).name;
 }
+const getShiftName = (shift_id) =>{
+    return props.shifts.find(shift => shift.id === shift_id).name;
+}
 
 const deleteStudent = (student_id) =>{
     axios.post('students/delete/'+student_id);
@@ -26,12 +29,12 @@ const deleteStudent = (student_id) =>{
 </script>
 
 <template>
-    <Head title="students" />
+    <Head title="Students" />
 
     <AuthenticatedLayout :role="role" >
         <div class="bg-white m-4   h-full p-6 rounded shadow ">
             <div class="flex justify-between items-center border-2 p-2 rounded-t">
-                <h1 class="text-xl font-bold">students ({{students.length || 0}})</h1>
+                <h1 class="text-xl font-bold">Students ({{students.length || 0}})</h1>
                 <StudentAddModalHeadless :courses="props.courses" :shifts="props.shifts" />
             </div>
             
@@ -43,6 +46,9 @@ const deleteStudent = (student_id) =>{
                             <th class="p-2">Name</th>
                             <th class="p-2">Email</th>
                             <th class="p-2">Course</th>
+                            <th class="p-2">CNIC</th>
+                            <th class="p-2">Phone</th>
+                            <th class="p-2">Shift</th>
                             <th class="p-2 text-left">Action</th>
                         </tr>
                     </thead>
@@ -52,6 +58,9 @@ const deleteStudent = (student_id) =>{
                             <td class="p-2 ">{{student.name}}</td>
                             <td class="p-2 ">{{student.email}}</td>
                             <td class="p-2 ">{{getCourseName(student.course_id) }}</td>
+                            <td class="p-2 ">{{student.cnic }}</td>
+                            <td class="p-2 ">{{student.phone }}</td>
+                            <td class="p-2 ">{{getShiftName(student.shift_id) }}</td>
                             <td class="p-2  text-center flex gap-2 ">
                                 <StudentEditModalHeadless :courses="props.courses" :student="student" :shifts="props.shifts" />
                                  <button class="rounded-md bg-black  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75" @click="deleteStudent(student.id)">Delete</button></td>
