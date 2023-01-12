@@ -125,8 +125,8 @@ const submit = () => {
 
                   <select v-model="form.gender"
                     class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                    <option value="male" >Male</option>
-                    <option value="female" >Female</option>
+                    <option value="Male" >Male</option>
+                    <option value="Female" >Female</option>
                   </select>
 
                   <InputError class="mt-2" :message="form.errors.gender" />
