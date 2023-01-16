@@ -4,6 +4,8 @@ import { Head } from '@inertiajs/inertia-vue3';
 import DropdownHeadless from '@/Components/DropdownHeadless.vue'
 import TeacherAddModalHeadless from '@/Components/TeacherAddModalHeadless.vue'
 import TeacherEditModalHeadless from '@/Components/TeacherEditModalHeadless.vue'
+import TeacherViewModalHeadless from '@/Components/TeacherViewModalHeadless.vue'
+
 import { onMounted } from 'vue';
 import axios from 'axios';
 
@@ -49,7 +51,7 @@ const deleteTeacher = (teacher_id) =>{
                     <tbody class="">
                         <tr v-for="(teacher,index) in teachers" class="odd:bg-gray-100 hover:odd:bg-gray-200 hover:even:bg-gray-200 transition duration-300 ">
                             <td class="p-2 ">{{index+1}}</td>
-                            <td class="p-2 ">{{teacher.name}}</td>
+                            <td class="p-2 "><TeacherViewModalHeadless :courses="props.courses" :teacher="teacher" /></td>
                             <td class="p-2 ">{{teacher.email}}</td>
                             <td class="p-2 ">{{teacher.about}}</td>
                             <td class="p-2 ">{{getCourseName(teacher.course_id) }}</td>

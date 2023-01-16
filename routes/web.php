@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Models\Course;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -38,9 +41,17 @@ Route::get("/create_roles",function(){
 
 Route::get('/dashboard', function () {
     $role = Auth::user()->roles[0]["name"] ?? '';
+    $teachers = Teacher::all();
+    $students = Student::all();
+    $courses = Course::all();
+
     $route = $role == 'admin' ? 'Admin/Dashboard' : ($role == 'student' ? 'Student/Dashboard' : 'Teacher/Dashboard');
     return Inertia::render($route,[
-        "role" => $role
+        "role" => $role,
+        "total_teachers" => count($teachers) ?? 0,
+        "total_students" => count($students) ?? 0,
+        "total_courses" => count($courses) ?? 0
+        
     ]);
     
 })->middleware(['auth', 'verified'])->name('dashboard');

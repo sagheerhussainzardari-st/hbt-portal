@@ -4,6 +4,8 @@ import { Head } from '@inertiajs/inertia-vue3';
 import DropdownHeadless from '@/Components/DropdownHeadless.vue'
 import StudentAddModalHeadless from '@/Components/StudentAddModalHeadless.vue'
 import StudentEditModalHeadless from '@/Components/StudentEditModalHeadless.vue'
+import StudentViewModalHeadless from '@/Components/StudentViewModalHeadless.vue'
+
 import { onMounted,reactive } from 'vue';
 import axios from 'axios';
 
@@ -68,7 +70,9 @@ const getFilteredData = () =>{
                     <tbody class="">
                         <tr v-for="(student,index) in getFilteredData()" class="odd:bg-gray-100 hover:odd:bg-gray-200 hover:even:bg-gray-200 transition duration-300 ">
                             <td class="p-2 ">{{index+1}}</td>
-                            <td class="p-2 ">{{student.name}}</td>
+                            <td class="p-2 ">
+                                <!-- student.name -->
+                                <StudentViewModalHeadless :courses="props.courses" :shifts="props.shifts" :student="student" /></td>
                             <td class="p-2 ">{{student.father_name}}</td>
                             <td class="p-2 ">{{getCourseName(student.course_id) }}</td>
                             <td class="p-2 ">{{student.cnic }}</td>

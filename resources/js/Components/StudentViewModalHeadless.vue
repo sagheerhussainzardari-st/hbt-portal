@@ -17,7 +17,8 @@ const isOpen = ref(false)
 
 const props = defineProps({
   courses: Array,
-  shifts: Array
+  shifts: Array,
+  student: Object
 });
 
 function closeModal() {
@@ -28,22 +29,23 @@ function openModal() {
 }
 
 const form = useForm({
-  name: '',
-  father_name: '',
-  gender: 'male',
-  age: '',
-  address: '',
-  phone: '',
-  emergency_phone: '',
-  education: '',
-  cnic: '',
-  email: '',
-  shift_id: props.shifts[0].id,
-  course_id: props.courses[0].id,
+  id: props.student.id,
+  name: props.student.name,
+  father_name: props.student.father_name,
+  gender: props.student.gender,
+  age: props.student.age,
+  address: props.student.address,
+  phone: props.student.phone,
+  emergency_phone: props.student.emergency_phone,
+  education: props.student.education,
+  cnic: props.student.cnic,
+  email: props.student.email,
+  shift_id: props.student.shift_id,
+  course_id: props.student.course_id,
 });
 
 const submit = () => {
-  form.post(route('admin.students.add'));
+  form.post(route('admin.students.update'));
   closeModal();
   window.location.reload();
 };
@@ -52,10 +54,9 @@ const submit = () => {
 
 <template>
   <div class=" flex items-center justify-center">
-    <button type="button" @click="openModal"
-      class="rounded-md bg-black  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-      Add New
-    </button>
+    <p type="button" @click="openModal"  class="text-blue-700 cursor-pointer"  >
+      {{ student.name }}
+  </p>
   </div>
   <TransitionRoot appear :show="isOpen" as="template">
     <Dialog as="div" @close="closeModal" class="relative z-10">
@@ -70,17 +71,17 @@ const submit = () => {
             enter-to="opacity-100 scale-100" leave="duration-200 ease-in" leave-from="opacity-100 scale-100"
             leave-to="opacity-0 scale-95">
             <DialogPanel
-              class="w-6/12 max-w-md	  transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
               <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
-                Add New Student
+                Student View
                 <hr class="mt-2 mb-4">
               </DialogTitle>
 
-              <form @submit.prevent="submit" class="grid grid-cols-2 gap-2">
+              <form @submit.prevent="" class="grid grid-cols-2 gap-2">
                 <div>
                   <InputLabel for="name" value="Name" />
 
-                  <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus
+                  <TextInput id="name" type="text" disabled class="mt-1 block w-full" v-model="form.name" required autofocus
                     autocomplete="name" />
 
                   <InputError class="mt-2" :message="form.errors.name" />
@@ -89,7 +90,7 @@ const submit = () => {
                 <div >
                   <InputLabel for="fathername" value="Father" />
 
-                  <TextInput id="father_name" type="text" class="mt-1 block w-full" v-model="form.father_name" required 
+                  <TextInput id="father_name" type="text" disabled class="mt-1 block w-full" v-model="form.father_name" required 
                     autocomplete="father_name" />
 
                   <InputError class="mt-2" :message="form.errors.father_name" />
@@ -100,7 +101,7 @@ const submit = () => {
                 <div >
                   <InputLabel for="age" value="Age" />
 
-                  <TextInput id="age" type="number" class="mt-1 block w-full" v-model="form.age" required 
+                  <TextInput id="age" type="number" disabled class="mt-1 block w-full" v-model="form.age" required 
                     autocomplete="age" />
 
                   <InputError class="mt-2" :message="form.errors.age" />
@@ -110,7 +111,7 @@ const submit = () => {
                 <div >
                   <InputLabel for="address" value="Address" />
 
-                  <TextInput id="address" type="text" class="mt-1 block w-full" v-model="form.address" required 
+                  <TextInput id="address" type="text" disabled class="mt-1 block w-full" v-model="form.address" required 
                     autocomplete="address" />
 
                   <InputError class="mt-2" :message="form.errors.address" />
@@ -122,9 +123,10 @@ const submit = () => {
                   <InputLabel for="gender" value="Gender" />
 
                   <select v-model="form.gender"
+                  disabled
                     class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                    <option value="male" >Male</option>
-                    <option value="female" >Female</option>
+                    <option value="Male" >Male</option>
+                    <option value="Female" >Female</option>
                   </select>
 
                   <InputError class="mt-2" :message="form.errors.gender" />
@@ -134,7 +136,7 @@ const submit = () => {
                 <div >
                   <InputLabel for="email" value="Email" />
 
-                  <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required 
+                  <TextInput id="email" type="text" class="mt-1 block w-full" :value="form.email" disabled
                     autocomplete="email" />
 
                   <InputError class="mt-2" :message="form.errors.email" />
@@ -145,6 +147,7 @@ const submit = () => {
                   <InputLabel for="course" value="Course" />
 
                   <select v-model="form.course_id"
+                  disabled
                     class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                     <option :value="course.id" v-for="course in props.courses">{{course.name}}</option>
                   </select>
@@ -157,6 +160,7 @@ const submit = () => {
                   <InputLabel for="shift_id" value="Shift" />
 
                   <select v-model="form.shift_id"
+                  disabled
                     class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                     <option :value="shift.id" v-for="shift in shifts">{{shift.name}}</option>
                   </select>
@@ -166,7 +170,7 @@ const submit = () => {
                 <div >
                   <InputLabel for="phone" value="Phone" />
 
-                  <TextInput id="phone" type="tel" class="mt-1 block w-full" v-model="form.phone" required 
+                  <TextInput id="phone" type="tel" disabled class="mt-1 block w-full" v-model="form.phone" required 
                     autocomplete="phone" />
 
                   <InputError class="mt-2" :message="form.errors.phone" />
@@ -175,7 +179,7 @@ const submit = () => {
                 <div >
                   <InputLabel for="emergency_phone" value="Emergency Phone" />
 
-                  <TextInput id="emergency_phone" type="tel" class="mt-1 block w-full" v-model="form.emergency_phone" required 
+                  <TextInput id="emergency_phone" disabled type="tel" class="mt-1 block w-full" v-model="form.emergency_phone" required 
                     autocomplete="emergency_phone" />
 
                   <InputError class="mt-2" :message="form.errors.emergency_phone" />
@@ -185,7 +189,7 @@ const submit = () => {
                 <div >
                   <InputLabel for="education" value="Education" />
 
-                  <TextInput id="education" type="text" class="mt-1 block w-full" v-model="form.education" required 
+                  <TextInput id="education" type="text" disabled class="mt-1 block w-full" v-model="form.education" required 
                     autocomplete="education" />
 
                   <InputError class="mt-2" :message="form.errors.education" />
@@ -194,17 +198,12 @@ const submit = () => {
                 <div >
                   <InputLabel for="cnic" value="CNIC" />
 
-                  <TextInput id="cnic" type="text" class="mt-1 block w-full" v-model="form.cnic" required 
+                  <TextInput id="cnic" type="text"  disabled class="mt-1 block w-full" v-model="form.cnic" required 
                     autocomplete="cnic" />
 
                   <InputError class="mt-2" :message="form.errors.cnic" />
                 </div>
 
-                <div class="flex items-center col-span-2 justify-center  mt-4">
-                  <PrimaryButton class="px-8"  :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Add
-                  </PrimaryButton>
-                </div>
               </form>
 
             </DialogPanel>
