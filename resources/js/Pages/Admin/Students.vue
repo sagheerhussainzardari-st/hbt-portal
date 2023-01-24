@@ -17,7 +17,7 @@ const props = defineProps({
 });
 
 const reactiveValues = reactive({
-    searchValue: '',
+    searchValue: ''
 })
 
 const getCourseName = (course_id) =>{

@@ -52,9 +52,14 @@ onMounted(() => {
                                 <NavLink v-if="role === 'admin' ? true: false" :href="route('admin.teachers')" :active="route().current('admin.teachers')">
                                     Teachers
                                 </NavLink>
-                                <NavLink v-if="role === 'admin' || role === 'teacher'  ? true: false"  :href="route('admin.students')" :active="route().current('admin.students')">
+                                <NavLink v-if="role === 'admin'  ? true: false"  :href="route('admin.students')" :active="route().current('admin.students')">
                                     Students
                                 </NavLink>
+                                <NavLink v-if=" role === 'teacher'  ? true: false"  :href="route('teacher/students')" :active="route().current('teacher/students')">
+                                    Students
+                                </NavLink>
+
+                                <!-- teacher -->
 
                                 
                             </div>
@@ -147,7 +152,7 @@ onMounted(() => {
                             Teachers
                         </ResponsiveNavLink>
                          <ResponsiveNavLink v-if="role === 'admin' || role === 'teacher'  ? true: false" :href="route('admin.students')" :active="route().current('admin.students')">
-                            Teachers
+                            Students
                         </ResponsiveNavLink>
                     </div>
 

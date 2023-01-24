@@ -84,10 +84,10 @@ Route::middleware('admin')->group(function(){
 
 Route::middleware('teacher')->group(function(){
     Route::prefix('teacher')->group(function () {
-        Route::get("students",[StudentController::class,'index'])->name('admin.students');
-        Route::post("students/add",[StudentController::class,'store'])->name('admin.students.add');
-        Route::post("students/update",[StudentController::class,'update'])->name('admin.students.update');
-        Route::post("students/delete/{id}",[StudentController::class,'delete'])->name('admin.students.delete');
+        Route::get("students",[StudentController::class,'index'])->name('teacher.students');
+        // Route::post("students/add",[StudentController::class,'store'])->name('admin.students.add');
+        // Route::post("students/update",[StudentController::class,'update'])->name('admin.students.update');
+        // Route::post("students/delete/{id}",[StudentController::class,'delete'])->name('admin.students.delete');
     });
 });
 
