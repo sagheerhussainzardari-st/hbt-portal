@@ -5,6 +5,9 @@ import DropdownHeadless from '@/Components/DropdownHeadless.vue'
 import StudentAddModalHeadless from '@/Components/StudentAddModalHeadless.vue'
 import StudentEditModalHeadless from '@/Components/StudentEditModalHeadless.vue'
 import StudentViewModalHeadless from '@/Components/StudentViewModalHeadless.vue'
+import MessageModalHeadless from '@/Components/MessageModalHeadless.vue'
+
+
 
 import { onMounted,reactive } from 'vue';
 import axios from 'axios';
@@ -57,29 +60,30 @@ const getFilteredData = () =>{
                             <th class="p-2">Name</th>
                             <th class="p-2">Father Name</th>
                             <th class="p-2">Course</th>
-                            <th class="p-2">CNIC</th>
+                            <!-- <th class="p-2">CNIC</th> -->
                             <th class="p-2">Phone</th>
-                            <th class="p-2">Shift</th>
-                            <th class="p-2">Age</th>
+                            <!-- <th class="p-2">Shift</th> -->
+                            <!-- <th class="p-2">Age</th> -->
                             <th class="p-2">Gender</th>
                             <th v-if="role == 'admin'" class="p-2 text-left">Action</th>
                         </tr>
                     </thead>
                     <tbody class="">
-                        <tr v-for="(student,index) in getFilteredData()" class="odd:bg-gray-100 hover:odd:bg-gray-200 hover:even:bg-gray-200 transition duration-300 ">
+                        <tr v-for="(student,index) in getFilteredData()" :key="student.id" class="odd:bg-gray-100 hover:odd:bg-gray-200 hover:even:bg-gray-200 transition duration-300 ">
                             <td class="p-2 ">{{index+1}}</td>
                             <td class="p-2 ">
                                 <!-- student.name -->
                                 <StudentViewModalHeadless :courses="props.courses" :shifts="props.shifts" :student="student" /></td>
                             <td class="p-2 ">{{student.father_name}}</td>
                             <td class="p-2 ">{{getCourseName(student.course_id) }}</td>
-                            <td class="p-2 ">{{student.cnic }}</td>
+                            <!-- <td class="p-2 ">{{student.cnic }}</td> -->
                             <td class="p-2 ">{{student.phone }}</td>
-                            <td class="p-2 ">{{getShiftName(student.shift_id) }}</td>
-                            <td class="p-2 ">{{student.age }}</td>
+                            <!-- <td class="p-2 ">{{getShiftName(student.shift_id) }}</td> -->
+                            <!-- <td class="p-2 ">{{student.age }}</td> -->
                             <td class="p-2 ">{{student.gender }}</td>
                             <td v-if="role == 'admin'" class="p-2  text-center flex gap-2 ">
                                 <StudentEditModalHeadless :courses="props.courses" :student="student" :shifts="props.shifts" />
+                                <MessageModalHeadless :student="student" />
                                  <button class="rounded-md bg-black  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75" @click="deleteStudent(student.id)">Delete</button></td>
                         </tr>
                         <tr v-if="getFilteredData().length < 1" class="">

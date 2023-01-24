@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -80,6 +81,7 @@ Route::middleware('admin')->group(function(){
         Route::post("students/add",[StudentController::class,'store'])->name('admin.students.add');
         Route::post("students/update",[StudentController::class,'update'])->name('admin.students.update');
         Route::post("students/delete/{id}",[StudentController::class,'delete'])->name('admin.students.delete');
+        Route::post("students/send_message",[MessageController::class,'send_student_message'])->name("admin.students.send_message");
     });
 });
 
