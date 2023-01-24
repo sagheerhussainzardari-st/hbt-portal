@@ -78,8 +78,8 @@ const submit = () => {
                 <hr class="mt-2 mb-4">
               </DialogTitle>
 
-              <form @submit.prevent="submit" class="grid grid-cols-2 gap-2">
-                <div>
+              <form @submit.prevent="submit" class="grid lg:grid-cols-2 grid-cols-1 gap-2">
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="name" value="Name" />
 
                   <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus
@@ -88,7 +88,7 @@ const submit = () => {
                   <InputError class="mt-2" :message="form.errors.name" />
                 </div>
                 
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="fathername" value="Father" />
 
                   <TextInput id="father_name" type="text" class="mt-1 block w-full" v-model="form.father_name" required 
@@ -99,7 +99,7 @@ const submit = () => {
                 </div>
 
 
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="age" value="Age" />
 
                   <TextInput id="age" type="number" class="mt-1 block w-full" v-model="form.age" required 
@@ -109,7 +109,7 @@ const submit = () => {
                 
                 </div>
 
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="address" value="Address" />
 
                   <TextInput id="address" type="text" class="mt-1 block w-full" v-model="form.address" required 
@@ -120,7 +120,7 @@ const submit = () => {
                 </div>
 
 
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="gender" value="Gender" />
 
                   <select v-model="form.gender"
@@ -133,7 +133,7 @@ const submit = () => {
                 </div>
 
 
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="email" value="Email" />
 
                   <TextInput id="email" type="text" class="mt-1 block w-full" :value="form.email" disabled
@@ -143,7 +143,7 @@ const submit = () => {
                 </div>
 
   
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="course" value="Course" />
 
                   <select v-model="form.course_id"
@@ -155,7 +155,7 @@ const submit = () => {
                 </div>
 
 
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="shift_id" value="Shift" />
 
                   <select v-model="form.shift_id"
@@ -165,7 +165,7 @@ const submit = () => {
 
                   <InputError class="mt-2" :message="form.errors.shift_id" />
                 </div>
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="phone" value="Phone" />
 
                   <TextInput id="phone" type="tel" class="mt-1 block w-full" v-model="form.phone" required 
@@ -174,7 +174,7 @@ const submit = () => {
                   <InputError class="mt-2" :message="form.errors.phone" />
                 </div>
 
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="emergency_phone" value="Emergency Phone" />
 
                   <TextInput id="emergency_phone" type="tel" class="mt-1 block w-full" v-model="form.emergency_phone" required 
@@ -184,7 +184,7 @@ const submit = () => {
                 </div>
 
 
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="education" value="Education" />
 
                   <TextInput id="education" type="text" class="mt-1 block w-full" v-model="form.education" required 
@@ -193,7 +193,7 @@ const submit = () => {
                   <InputError class="mt-2" :message="form.errors.education" />
                 </div>
 
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="cnic" value="CNIC" />
 
                   <TextInput id="cnic" type="text" class="mt-1 block w-full" v-model="form.cnic" required 
@@ -204,7 +204,7 @@ const submit = () => {
 
                 <div class="flex items-center col-span-2 justify-center  mt-4">
                   <PrimaryButton class="px-8"  :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Add
+                    Update
                   </PrimaryButton>
                 </div>
               </form>

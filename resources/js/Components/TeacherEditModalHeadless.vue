@@ -69,8 +69,8 @@ const submit = () => {
                 <hr class="mt-2 mb-4">
               </DialogTitle>
 
-              <form @submit.prevent="submit" class="grid grid-cols-2 gap-2">
-                <div>
+              <form @submit.prevent="submit" class="grid lg:grid-cols-2 grid-cols-1 gap-2">
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="name" value="Name" />
 
                   <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus
@@ -78,7 +78,7 @@ const submit = () => {
 
                   <InputError class="mt-2" :message="form.errors.name" />
                 </div>
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="email" value="Email" />
 
                   <TextInput id="email" type="text" :value="form.email" disabled class="mt-1 block w-full"  
@@ -86,7 +86,7 @@ const submit = () => {
 
                   <InputError class="mt-2" :message="form.errors.email" />
                 </div>
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="about" value="About" />
 
                   <TextInput id="about" type="text" class="mt-1 block w-full" v-model="form.about" required 
@@ -95,7 +95,7 @@ const submit = () => {
                   <InputError class="mt-2" :message="form.errors.about" />
                 </div>
   
-                <div >
+                <div class="lg:col-span-1 col-span-2">
                   <InputLabel for="course" value="Course" />
 
                   <select v-model="form.course_id"
