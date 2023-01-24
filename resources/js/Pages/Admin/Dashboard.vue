@@ -14,7 +14,7 @@ const props = defineProps({
     <Head title="Dashboard" />
 
     <AuthenticatedLayout :role="role">
-        <div class="grid-cols-3 grid gap-2 w-10/12 mx-auto ">
+        <div class="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid gap-2 lg:w-10/12 mx-auto ">
             <Link href="/admin/teachers" class="bg-green-600 p-4 m-4 rounded shadow-md transition-all hover:scale-105 duration-300 cursor-pointer">
                 <h1 class="font-bold text-2xl text-white py-2">Teachers</h1>
                 <h1 class="text-right font-bold text-4xl text-white py-4">{{total_teachers}}</h1>

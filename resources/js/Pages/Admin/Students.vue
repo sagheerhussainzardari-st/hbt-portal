@@ -43,13 +43,13 @@ const getFilteredData = () =>{
 
     <AuthenticatedLayout :role="role" >
         <div class="bg-white m-4   h-full p-6 rounded shadow ">
-            <div class="flex justify-between items-center border-2 p-2 rounded-t">
-                <h1 class="text-xl font-bold">Students ({{getFilteredData().length || 0}})</h1>
-                <input v-model="reactiveValues.searchValue" type="text" class="w-6/12 rounded-full focus:ring-none outline-none" placeholder="Search...">
+            <div class="lg:flex justify-between items-center border-2 p-2 rounded-t">
+                <h1 class="text-xl text-center lg:text-left font-bold">Students ({{getFilteredData().length || 0}})</h1>
+                <input v-model="reactiveValues.searchValue" type="text" class="lg:w-6/12 w-full rounded-full focus:ring-none outline-none" placeholder="Search...">
                 <StudentAddModalHeadless v-if="role == 'admin'" :courses="props.courses" :shifts="props.shifts" />
             </div>
             
-            <div class="">
+            <div class="overflow-y-auto">
                 <table class="w-full border table">
                     <thead>
                         <tr class="text-left border-b">

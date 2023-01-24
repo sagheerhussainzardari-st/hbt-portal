@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\VideoController;
 use App\Models\Course;
 use App\Models\Student;
 use App\Models\Teacher;
@@ -85,6 +86,7 @@ Route::middleware('admin')->group(function(){
 Route::middleware('teacher')->group(function(){
     Route::prefix('teacher')->group(function () {
         Route::get("students",[StudentController::class,'index'])->name('teacher.students');
+        Route::get("videos",[VideoController::class,'index'])->name('teacher.videos');
         // Route::post("students/add",[StudentController::class,'store'])->name('admin.students.add');
         // Route::post("students/update",[StudentController::class,'update'])->name('admin.students.update');
         // Route::post("students/delete/{id}",[StudentController::class,'delete'])->name('admin.students.delete');

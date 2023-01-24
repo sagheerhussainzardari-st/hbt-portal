@@ -55,11 +55,13 @@ onMounted(() => {
                                 <NavLink v-if="role === 'admin'  ? true: false"  :href="route('admin.students')" :active="route().current('admin.students')">
                                     Students
                                 </NavLink>
-                                <NavLink v-if=" role === 'teacher'  ? true: false"  :href="route('teacher/students')" :active="route().current('teacher/students')">
+                                <NavLink v-if=" role === 'teacher'  ? true: false"  :href="'/teacher/students'" :active="route().current('teacher.students')">
                                     Students
                                 </NavLink>
+                                <NavLink v-if=" role === 'teacher'  ? true: false"  :href="'/teacher/videos'" :active="route().current('teacher.videos')">
+                                    Videos
+                                </NavLink>
 
-                                <!-- teacher -->
 
                                 
                             </div>
@@ -151,9 +153,20 @@ onMounted(() => {
                         <ResponsiveNavLink v-if="role === 'admin' ? true: false" :href="route('admin.teachers')" :active="route().current('admin.teachers')">
                             Teachers
                         </ResponsiveNavLink>
-                         <ResponsiveNavLink v-if="role === 'admin' || role === 'teacher'  ? true: false" :href="route('admin.students')" :active="route().current('admin.students')">
+                         <ResponsiveNavLink v-if="role === 'admin'  ? true: false" :href="route('admin.students')" :active="route().current('admin.students')">
                             Students
                         </ResponsiveNavLink>
+
+                        <ResponsiveNavLink v-if=" role === 'teacher'  ? true: false" :href="'/teacher/students'" :active="route().current('teacher.students')">
+                            Students
+                        </ResponsiveNavLink>
+                        
+                        <ResponsiveNavLink v-if=" role === 'teacher'  ? true: false" :href="'/teacher/videos'" :active="route().current('teacher.videos')">
+                            Videos
+                        </ResponsiveNavLink>
+                        
+                        
+
                     </div>
 
                     <!-- Responsive Settings Options -->

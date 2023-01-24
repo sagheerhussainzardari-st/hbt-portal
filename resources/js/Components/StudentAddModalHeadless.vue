@@ -53,7 +53,7 @@ const submit = () => {
 <template>
   <div class=" flex items-center justify-center">
     <button type="button" @click="openModal"
-      class="rounded-md bg-black  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+      class="rounded-md bg-black mt-2 lg:mt-0  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
       Add New
     </button>
   </div>
