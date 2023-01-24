@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref,onMounted } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
@@ -8,10 +8,23 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 
 const showingNavigationDropdown = ref(false);
+const currentRole = ref("Unknown")
 
 const props = defineProps({
     role: String,
 });
+
+onMounted(() => {
+    
+    if(props.role){
+        currentRole.value =  props.role  || "Unknown";
+    }else{
+        currentRole.value = props.role || "Unknown";
+        localStorage.setItem("role", props.role);
+    }
+})
+
+
 </script>
 
 <template>
@@ -39,7 +52,7 @@ const props = defineProps({
                                 <NavLink v-if="role === 'admin' ? true: false" :href="route('admin.teachers')" :active="route().current('admin.teachers')">
                                     Teachers
                                 </NavLink>
-                                <NavLink v-if="role === 'admin' ? true: false"  :href="route('admin.students')" :active="route().current('admin.students')">
+                                <NavLink v-if="role === 'admin' || role === 'teacher'  ? true: false"  :href="route('admin.students')" :active="route().current('admin.students')">
                                     Students
                                 </NavLink>
 
@@ -57,7 +70,10 @@ const props = defineProps({
                                                 type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {{ $page.props.auth.user.name }}
+                                                <!-- {{ $page.props.auth.user.name }} -->
+                                                <p class="flex text-md justify-center items-center">{{ $page.props.auth.user.name }} ( <p class="text-xs">{{ currentRole || 'Unknown' }}</p> )</p>
+                                                
+                                                
 
                                                 <svg
                                                     class="ml-2 -mr-0.5 h-4 w-4"
@@ -127,10 +143,10 @@ const props = defineProps({
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('admin.teachers')" :active="route().current('admin.teachers')">
+                        <ResponsiveNavLink v-if="role === 'admin' ? true: false" :href="route('admin.teachers')" :active="route().current('admin.teachers')">
                             Teachers
                         </ResponsiveNavLink>
-                         <ResponsiveNavLink :href="route('admin.students')" :active="route().current('admin.students')">
+                         <ResponsiveNavLink v-if="role === 'admin' || role === 'teacher'  ? true: false" :href="route('admin.students')" :active="route().current('admin.students')">
                             Teachers
                         </ResponsiveNavLink>
                     </div>

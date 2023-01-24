@@ -44,8 +44,8 @@ const submit = () => {
   
 
 <template>
-  <div class=" flex items-center justify-center">
-    <p type="button" @click="openModal"  class="text-blue-700 cursor-pointer"  >
+  <div class=" flex items-center justify-start">
+    <p type="button" @click="openModal"  class="text-blue-700 text-left cursor-pointer"  >
       {{ teacher.name }}
   </p>
   </div>

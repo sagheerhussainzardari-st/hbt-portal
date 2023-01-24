@@ -18,9 +18,7 @@ const props = defineProps({
 
 const reactiveValues = reactive({
     searchValue: '',
-  
 })
-// const searchValue = '';
 
 const getCourseName = (course_id) =>{
     return props.courses.find(course => course.id === course_id).name;
@@ -35,7 +33,7 @@ const deleteStudent = (student_id) =>{
 }
 
 const getFilteredData = () =>{
-    return props.students.filter(student => student.name.toLowerCase().includes(reactiveValues.searchValue.toLowerCase()) || student.cnic.toLowerCase().includes(reactiveValues.searchValue.toLowerCase()) || student.age == reactiveValues.searchValue || student.gender.toLowerCase().includes(reactiveValues.searchValue.toLowerCase()));
+    return props.students.filter(student => getCourseName(student.course_id).toLowerCase().includes(reactiveValues.searchValue.toLowerCase()) || student.name.toLowerCase().includes(reactiveValues.searchValue.toLowerCase()) || student.cnic.toLowerCase().includes(reactiveValues.searchValue.toLowerCase()) || student.age == reactiveValues.searchValue || student.gender.toLowerCase().includes(reactiveValues.searchValue.toLowerCase()));
 }
 
 </script>
@@ -48,7 +46,7 @@ const getFilteredData = () =>{
             <div class="flex justify-between items-center border-2 p-2 rounded-t">
                 <h1 class="text-xl font-bold">Students ({{getFilteredData().length || 0}})</h1>
                 <input v-model="reactiveValues.searchValue" type="text" class="w-6/12 rounded-full focus:ring-none outline-none" placeholder="Search...">
-                <StudentAddModalHeadless :courses="props.courses" :shifts="props.shifts" />
+                <StudentAddModalHeadless v-if="role == 'admin'" :courses="props.courses" :shifts="props.shifts" />
             </div>
             
             <div class="">
@@ -64,7 +62,7 @@ const getFilteredData = () =>{
                             <th class="p-2">Shift</th>
                             <th class="p-2">Age</th>
                             <th class="p-2">Gender</th>
-                            <!-- <th class="p-2 text-left">Action</th> -->
+                            <th v-if="role == 'admin'" class="p-2 text-left">Action</th>
                         </tr>
                     </thead>
                     <tbody class="">
@@ -80,9 +78,9 @@ const getFilteredData = () =>{
                             <td class="p-2 ">{{getShiftName(student.shift_id) }}</td>
                             <td class="p-2 ">{{student.age }}</td>
                             <td class="p-2 ">{{student.gender }}</td>
-                            <!-- <td class="p-2  text-center flex gap-2 ">
+                            <td v-if="role == 'admin'" class="p-2  text-center flex gap-2 ">
                                 <StudentEditModalHeadless :courses="props.courses" :student="student" :shifts="props.shifts" />
-                                 <button class="rounded-md bg-black  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75" @click="deleteStudent(student.id)">Delete</button></td> -->
+                                 <button class="rounded-md bg-black  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75" @click="deleteStudent(student.id)">Delete</button></td>
                         </tr>
                         <tr v-if="getFilteredData().length < 1" class="">
                             <td class="p-2">No Records Found...</td>

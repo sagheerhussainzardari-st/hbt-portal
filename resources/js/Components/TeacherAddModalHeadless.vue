@@ -28,7 +28,7 @@ function openModal() {
 
 const form = useForm({
   name: '',
-  about: '',
+  about: ' ',
   email: '',
   course_id: props.courses[0].id,
 });

@@ -6,7 +6,7 @@ import { Head } from '@inertiajs/inertia-vue3';
 <template>
     <Head title="Home" />
 
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :role="role">
         <h1>This is your portal for student</h1>
     </AuthenticatedLayout>
 </template>

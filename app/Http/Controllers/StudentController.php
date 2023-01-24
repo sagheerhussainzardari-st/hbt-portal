@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Shift;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,10 @@ class StudentController extends Controller
         $shifts = Shift::all();
         $students = Student::all();
         $role = Auth::user()->roles[0]["name"] ?? '';
+        if($role == "teacher"){
+            $teacher  = Teacher::where(["email" =>  Auth::user()->email])->first();
+            $students = Student::where(["course_id" => $teacher->course_id])->get();
+        }
         return Inertia::render('Admin/Students',["students" => $students,"courses" => $courses,'shifts' => $shifts,"role" => $role]);
     }
 
@@ -45,18 +50,16 @@ class StudentController extends Controller
 
         $user->assignRole('student');
 
-
-
         return redirect("/admin/students");
     }
 
     function update(Request $request){
+        
         $student = Student::find($request->id);
         $student->name = $request->name;
         $student->father_name = $request->father_name;
         $student->age = $request->age;
         $student->address = $request->address;
-
         $student->email = $request->email;
         $student->gender = $request->gender;
         $student->phone = $request->phone;
@@ -75,4 +78,6 @@ class StudentController extends Controller
         $student->delete();
         return redirect("/admin/students");
     }
+
+    
 }

@@ -46,6 +46,12 @@ Route::get('/dashboard', function () {
     $courses = Course::all();
 
     $route = $role == 'admin' ? 'Admin/Dashboard' : ($role == 'student' ? 'Student/Dashboard' : 'Teacher/Dashboard');
+    
+    if($role == "teacher"){
+        $teacher  = Teacher::where(["email" =>  Auth::user()->email])->first();
+        $students = Student::where(["course_id" => $teacher->course_id])->get();
+    }
+    
     return Inertia::render($route,[
         "role" => $role,
         "total_teachers" => count($teachers) ?? 0,
@@ -69,6 +75,15 @@ Route::middleware('admin')->group(function(){
         Route::post("teachers/update",[TeacherController::class,'update'])->name('admin.teachers.update');
         Route::post("teachers/delete/{id}",[TeacherController::class,'delete'])->name('admin.teachers.delete');
 
+        Route::get("students",[StudentController::class,'index'])->name('admin.students');
+        Route::post("students/add",[StudentController::class,'store'])->name('admin.students.add');
+        Route::post("students/update",[StudentController::class,'update'])->name('admin.students.update');
+        Route::post("students/delete/{id}",[StudentController::class,'delete'])->name('admin.students.delete');
+    });
+});
+
+Route::middleware('teacher')->group(function(){
+    Route::prefix('teacher')->group(function () {
         Route::get("students",[StudentController::class,'index'])->name('admin.students');
         Route::post("students/add",[StudentController::class,'store'])->name('admin.students.add');
         Route::post("students/update",[StudentController::class,'update'])->name('admin.students.update');

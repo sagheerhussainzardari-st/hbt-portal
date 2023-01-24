@@ -6,7 +6,7 @@ import TeacherAddModalHeadless from '@/Components/TeacherAddModalHeadless.vue'
 import TeacherEditModalHeadless from '@/Components/TeacherEditModalHeadless.vue'
 import TeacherViewModalHeadless from '@/Components/TeacherViewModalHeadless.vue'
 
-import { onMounted } from 'vue';
+import { onMounted ,reactive} from 'vue';
 import axios from 'axios';
 
 const props = defineProps({
@@ -15,6 +15,10 @@ const props = defineProps({
     role: String
 });
 
+const reactiveValues = reactive({
+    searchValue: '',
+})
+
 const getCourseName = (course_id) =>{
     return props.courses.find(course => course.id === course_id).name;
 }
@@ -22,6 +26,10 @@ const getCourseName = (course_id) =>{
 const deleteTeacher = (teacher_id) =>{
     axios.post('teachers/delete/'+teacher_id);
   window.location.reload();
+}
+
+const getFilteredData = () =>{
+    return props.teachers.filter(teacher => teacher.name.toLowerCase().includes(reactiveValues.searchValue.toLowerCase()));
 }
 
 </script>
@@ -33,6 +41,7 @@ const deleteTeacher = (teacher_id) =>{
         <div class="bg-white m-4   h-full p-6 rounded shadow ">
             <div class="flex justify-between items-center border-2 p-2 rounded-t">
                 <h1 class="text-xl font-bold">Teachers ({{teachers.length || 0}})</h1>
+                <input v-model="reactiveValues.searchValue" type="text" class="w-6/12 rounded-full focus:ring-none outline-none" placeholder="Search..." >
                 <TeacherAddModalHeadless :courses="props.courses" />
             </div>
             
@@ -49,7 +58,7 @@ const deleteTeacher = (teacher_id) =>{
                         </tr>
                     </thead>
                     <tbody class="">
-                        <tr v-for="(teacher,index) in teachers" class="odd:bg-gray-100 hover:odd:bg-gray-200 hover:even:bg-gray-200 transition duration-300 ">
+                        <tr v-for="(teacher,index) in getFilteredData()" class="odd:bg-gray-100 hover:odd:bg-gray-200 hover:even:bg-gray-200 transition duration-300 ">
                             <td class="p-2 ">{{index+1}}</td>
                             <td class="p-2 "><TeacherViewModalHeadless :courses="props.courses" :teacher="teacher" /></td>
                             <td class="p-2 ">{{teacher.email}}</td>
